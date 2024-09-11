@@ -30,8 +30,8 @@ class ResetPasswordview(SuccessMessageMixin,PasswordResetView):
     template_name = r'password_reset.html'
     email_template_name = r'password_reset_email.html'
     subject_template_name = r'image\password_reset_subject.txt'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_message = 'เราได้ส่งลิงค์ในการ reset รหัสผ่านไปทางอีเมลที่คุณแจ้งแล้ว โปรดตรวจสอบที่emailของคุณ'
     success_url = reverse_lazy('base:logintoweb')
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return self.render_to_response(self.get_context_data(form=form))
